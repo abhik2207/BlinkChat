@@ -3,6 +3,7 @@ import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import { TbMessages } from "react-icons/tb";
 import useConversation from '../../zustand/useConversation';
+import { useAuthContext } from "../../context/AuthContext";
 
 function MessageContainer() {
     const { selectedConversation, setSelectedConversation } = useConversation();
@@ -34,10 +35,11 @@ export default MessageContainer;
 
 
 function NoChatSelected() {
+    const { authUser } = useAuthContext();
     return (
         <div className="flex items-center justify-center w-full h-full">
             <div className="px-4 text-center font-semibold text-gray-200 sm:text-lg md:text-xl flex flex-col items-center gap-2">
-                <p>Welcome 👋🏻 Abhik Gupta</p>
+                <p>Welcome 👋🏻 {authUser.fullName}</p>
                 <p>Select a chat to start messaging</p>
                 <TbMessages className="text-3xl md:text-6xl text-center" />
             </div>

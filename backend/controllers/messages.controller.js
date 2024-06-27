@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import MessageModel from '../models/message.model.js';
 import ConversationModel from '../models/conversation.model.js';
+import { getReceiverSocketId, io } from '../socket/socket.js';
 
 export const sendMessage = async (req, res) => {
     try {
@@ -30,8 +31,12 @@ export const sendMessage = async (req, res) => {
 
         // await conversation.save();
         // await newMessage.save();
-
         await Promise.all([conversation.save(), newMessage.save()]);
+
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        if(receiverSocketId) {
+            io.to(receiverSocketId).emit("newMessage", newMessage);
+        }
 
         console.log(chalk.hex('#03befc').bold("~ Sent a message!"));
         res.status(201).json(newMessage);

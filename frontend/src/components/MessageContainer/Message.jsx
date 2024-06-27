@@ -9,7 +9,8 @@ function Message({ message }) {
     const senderIsMe = message.senderId === authUser._id;
     const chatClassName = senderIsMe ? 'chat-end' : 'chat-start';
     const profilePic = senderIsMe ? authUser.profilePicture : selectedConversation?.profilePicture;
-    const bubbleBGColor = senderIsMe ? 'bg-blue-600' : ''
+    const bubbleBGColor = senderIsMe ? 'bg-blue-600' : '';
+    const shouldShake = message.shouldShake ? 'shake' : '';
 
     return (
         <div className={`chat ${chatClassName}`}>
@@ -19,7 +20,7 @@ function Message({ message }) {
                 </div>
             </div>
 
-            <div className={`chat-bubble text-white ${bubbleBGColor}`}>{message.message}</div>
+            <div className={`chat-bubble text-white ${bubbleBGColor} ${shouldShake}`}>{message.message}</div>
             <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">{formatMongoDBDateToIST(message.createdAt)}</div>
         </div>
     )

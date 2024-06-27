@@ -35,6 +35,7 @@ export const signupUser = async (req, res) => {
 
             console.log(chalk.hex('#03befc').bold("~ Signed up an user!"));
             res.status(201).json({
+                _id: newUser._id,
                 fullName: newUser.fullName,
                 username: newUser.username,
                 gender: newUser.gender,
@@ -67,6 +68,7 @@ export const loginUser = async (req, res) => {
 
         console.log(chalk.hex('#03befc').bold("~ Logged in an user!"));
         res.status(201).json({
+            _id: user._id,
             fullName: user.fullName,
             username: user.username,
             gender: user.gender,
@@ -91,5 +93,4 @@ export const logoutUser = (req, res) => {
         console.log(err.message);
         res.status(500).json({ error: 'Internal Server Error!' });
     }
-    res.send('Logout API is working!');
 }
